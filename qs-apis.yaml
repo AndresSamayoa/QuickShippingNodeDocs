@@ -1,0 +1,1721 @@
+openapi: '3.0.2'
+info:
+  title: Quick Shipping Node APIs
+  version: '1.0'
+  description: 'APIs Node de Quick Shipping'
+servers:
+  - url: https://node.qs.gt
+
+components:
+  schemas:
+    direccion:
+      type: object
+      properties:
+        direccion_id:
+          type: integer
+          example: 0
+        direccion:
+          type: string
+          example: '3 calle 5-96'
+        nivel_1:
+          type: object
+          properties:
+            nombre:
+              type: string
+              example: 'Departamento'
+            descripcion:
+              type: string
+              example: 'Guatemala'
+        nivel_2:
+          type: object
+          properties:
+            nombre:
+              type: string
+              example: 'Municipio'
+            descripcion:
+              type: string
+              example: 'Guatemala'
+        nivel_3:
+          type: object
+          properties:
+            nombre:
+              type: string
+              example: 'Corregimiento'
+            descripcion:
+              type: string
+              example: '44134'
+        zona:
+          type: integer
+          example: 9
+        codigo_postal:
+          type: integer
+          example: 01001
+        pais_id:
+          type: integer
+          example: 2
+
+    direccion_cliente:
+      type: object
+      properties:
+        clientedireccion_id: 
+          type: integer
+          example: 0
+        direccion_id:
+          type: integer
+          example: 0
+        tipodireccion_id:
+          type: integer
+          example: 0
+        alias:
+          type: string
+          example: 'Casa'
+        preferida:
+          type: boolean
+          example: true
+        direccion:
+          $ref: '#/components/schemas/direccion'
+        tipo_direccion:
+          type: string
+          example: 'Casa'
+
+    informacionLogin:
+      properties:
+        suscripcion_id:
+          type: integer
+          example: 0
+        cliente_id: 
+          type: string
+          example: '0'
+        dpi:
+          type: string
+          example: '0000000000000'
+        nombres:
+          type: string
+          example: 'Juan'
+        apellidos:
+          type: string
+          example: 'Perez'
+        telefono:
+          type: string
+          example: '00000000'
+        celular:
+          type: string
+          example: '00000000'
+        correo_electronico:
+          type: string
+          example: 'test@mail.com'
+        password:
+          type: string
+          example: 'P@55W0RD'
+        fecha_nacimiento:
+          type: string
+          example: '2021-01-01'
+        nombre_facturacion:
+          type: string
+          example: 'Juan Perez'
+        nit:
+          type: string
+          example: '108555918'
+        activo:
+          type: integer
+          example: 3
+        fecha:
+          type: string
+          example: '2021-01-01'
+        codigo:
+          type: string
+          example: 'GZZ000'
+        facebook_id:
+          type: string
+          example: '1243567897657'
+        google_id:
+          type: string
+          example: '1324567897654'
+
+    valor:
+      type: object
+      properties:
+        valor_mercaderia:
+          type: number
+          example: 125.00
+        peso_real:
+          type: number
+          example: 5
+        Valor_cif:
+          type: number
+          example: 250
+        flete:
+          type: number
+          example: 4.56
+        gestion:
+          type: number
+          example: 4.80
+        servicios_subtotal:
+          type: number
+          example: 10.36
+        dai:
+          type: number
+          example: 0
+        impuesto_sobrecif:
+          type: number
+          example: 25.00
+        subtotal_impuestos:
+          type: number
+          example: 25
+        total:
+          type: number
+          example: 35.36
+
+    planesActualizado:
+      type: object
+      properties:
+        plan_id:
+          type: integer
+          example: 3
+        nombre:
+          type: string
+          example: 'Estandar'
+        duracion:
+          type: integer
+          example: 0
+        cantidad:
+          type: integer
+          example: 0
+        disponible:
+          type: integer
+          example: 0
+        adquiridos:
+          type: integer
+          example: 0
+        libras_plan:
+          type: integer
+          example: 0
+        costo_plan:
+          type: integer
+          example: 0
+        costolibra_extra:
+          type: integer
+          example: 1.9
+        activo:
+          type: integer
+          example: 1
+        gestion_aduanal:
+          type: integer
+          example: 4.8
+        es_trimestral:
+          type: boolean
+          example: false
+        es_premium:
+          type: boolean
+          example: false
+        es_estandar:
+          type: boolean
+          example: true
+        es_postal:
+          type: boolean
+          example: false
+    
+    planes:
+      type: object
+      properties:
+        plan_id:
+          type: integer
+          example: 3
+        nombre:
+          type: string
+          example: 'Estandar'
+        duracion:
+          type: integer
+          example: 0
+        cantidad:
+          type: integer
+          example: 0
+        disponible:
+          type: integer
+          example: 0
+        adquiridos:
+          type: integer
+          example: 0
+        libras_plan:
+          type: integer
+          example: 0
+        costo_plan:
+          type: integer
+          example: 0
+        costolibra_extra:
+          type: integer
+          example: 1.9
+        activo:
+          type: integer
+          example: 1
+        gestion_aduanal:
+          type: integer
+          example: 4.8
+
+    contacto:
+      type: object
+      properties:
+        telefono:
+          type: string
+          example: '2216-5454'
+        direccion:
+          type: string
+          example: '7a Ave. 14-44 zona 9. Edif. La Galeria, local 16-c, Guatemala'
+        email:
+          type: string
+          example: 'informacion@quickboxusa.com'
+
+    detallePago:
+      properties:
+        id:
+          type: integer
+          example: 0
+        descripcion:
+          type: string
+          example: 'CIF'
+        valor_total:
+          type: number
+          example: 25
+
+    pago:
+      properties:
+        cobertura_gratis:
+          type: boolean
+          example: true
+        detalle:
+          type: array
+          items: 
+            $ref: '#/components/schemas/detallePago'
+        libras:
+          type: number
+          example: 2
+        total_local:
+          type: string
+          example: '25'
+        moneda_local:
+          type: string
+          example: 'Q.'
+        total_dolar:
+          type: string
+          example: '3'
+        moneda_dolar:
+          type: string
+          example: '$.'
+
+    tarjeta:
+      properties:
+        id_tarjeta:
+          type: integer
+          example: 0
+        nombre:
+          type: string
+          example: 'test'
+        ultimos_digitos:
+          type: integer
+          example: 1111
+        mes:
+          type: string
+          example: '01'
+        anho:
+          type: string
+          example: '2021'
+        estado:
+          type: integer
+          example: 1
+        tipo:
+          type: string
+          example: 'Mastercard'
+
+    confirmacionWrs:
+      properties:
+        flete:
+          type: number
+          example: 11.3
+        flete_dolares:
+          type: number
+          example: 4.1
+        gestion:
+          type: number
+          example: 11.3
+        gestion_dolares:
+          type: number
+          example: 4.4
+        domicilio:
+          type: number
+          example: 70.9
+        domicilio_dolares:
+          type: number
+          example: 4.4
+        cif:
+          type: number
+          example: 12
+        cif_dolares:
+          type: number
+          example: 1
+        total:
+          type: number
+          example: 105.5
+        total_dolares:
+          type: number
+          example: 18.6
+
+    Wrs:
+      properties:
+        wr_id:
+          type: string
+          example: '444444'
+        tracking:
+          type: string
+          example: '444444'
+        fecha_recepcion:
+          type: string
+          format: date
+          example: '2021-01-01'
+        archivos:
+          type: array
+          items:
+            type: object
+            properties:
+              url:
+                type: string
+                example: 'https://example.image.gt/precarga'
+
+    usuarioRegistrado:
+      properties:
+        suscripcion_id:
+          type: integer
+          example: 1
+        cliente_id:
+          type: integer
+          example: 1
+        dpi:
+          type: string
+          example: '1234567890'
+        nombres:
+          type: string
+          example: 'Juan'
+        apellidos:
+          type: string
+          example: 'Perez'
+        telefono:
+          type: string
+          example: '00000000'
+        celular:
+          type: string
+          example: '00000000'
+        correo_electronico:
+          type: string
+          example: 'Example@mail.com'
+        password:
+          type: string
+          example: 'P@55W0RD'
+        fecha_nacimiento:
+          type: string
+          format: date
+          example: '2000-01-01'
+        nombre_facturacion:
+          type: string
+          example: 'Juan Perez'
+        nit:
+          type: string
+          example: '123456789'
+        activo:
+          type: integer
+          example: 0
+        fecha:
+          type: string
+          format: date
+          example: '2020-01-01'
+        google_id:
+          type: string
+          example: null
+        facebook_id:
+          type: string
+          example: null
+        apple_id:
+          type: string
+          example: null
+        codigo:
+          type: string
+          example: 'GZZ000'
+        pais_id:
+          type: integer
+          example: 1
+        
+    ubicaciones:
+      properties:
+        id:
+          type: integer
+          example: 1
+        descripcion:
+          type: string
+          example: 'Bodega Miami'
+        comentario:
+          type: string
+          example: 'se encuentra en la bodega de Miami'
+        fecha:
+          type: string
+          format: date
+          example: '2021-01-15'
+        wrs:
+          type: string
+          example: '444444'
+        estado_id:
+          type: string
+          example: '9'
+
+    detalleWrs:
+      properties:
+        fecha_recepcion:
+          type: string
+          format: date
+          example: '2021-01-01'
+        fecha_entrega:
+          type: string
+          format: date
+          example: '2021-01-01'
+        proveedor:
+          type: string
+          example: 'Amazon'
+        descripcion:
+          type: string
+          example: 'Accept'
+        peso:
+          type: number
+          example: 0
+        monto:
+          type: number
+          example: 10
+        factura:
+          type: number
+          example: 123456
+        url:
+          type: string
+          example: 'https://example.image.gt/precarga'
+
+    pagoFactura:
+      properties:
+        pago_id:
+          type: integer
+          example: 0
+        cliente_id:
+          type: integer
+          example: 0
+        fecha:
+          type: string
+          format: date
+          example: '2021-01-01'
+        tipopago_id:
+          type: integer
+          example: 0
+        metodopago_id:
+          type: integer
+          example: 0
+        valor_neto:
+          type: number
+          example: 178.57
+        valor_iva:
+          type: number
+          example: 21.43
+        valor_total:
+          type: number
+          example: 200
+        valorneto_dolares:
+          type: number
+          example: 178.57
+        valoriva_dolares:
+          type: number
+          example: 21.43
+        valortotal_dolares:
+          type: number
+          example: 200
+        usuario_id:
+          type: integer
+          example: 0
+        agencia_id:
+          type: integer
+          example: 0
+        observaciones:
+          type: string
+          example: 'accept'
+        pagoenlinea_id:
+          type: integer
+          example: 0
+
+    planCliente:
+      type: object
+      properties:
+        clienteplan_id:
+          type: integer
+          example: 0
+        plan_id:
+          type: string
+          example: '2'
+        fecha_activacion:
+          type: string
+          format: date
+          example: '2021-01-01T13:23:44.225Z'
+        fecha_vencimiento:
+          type: string
+          format: date
+          example: '2022-01-01T13:23:44.225Z'
+        libras_disponibles:
+          type: integer
+          example: 100
+        libras_consumidas:
+          type: integer
+          example: 0
+        libras_historial:
+          type: integer
+          example: 0
+        librasregalo_disponibles:
+          type: integer
+          example: 0
+        librasregalo_consumidas:
+          type: integer
+          example: 0
+        librasregalo_historial:
+          type: integer
+          example: 0
+        activo:
+          type: integer
+          example: 1
+        cliente_id:
+          type: integer
+          example: 0
+
+    fuentes:
+      properties:
+        fuente_id:
+          type: integer
+          example: 1
+        descripcion:
+          type: string
+          example: 'Aplicacion movli'
+
+paths:
+  /login:
+    post:
+      description: 'Inicia sesion, en caso de querer iniciar sesion con facebook o google solo debe ingresar ese campo,en caso de tener un token de autenticacion agregarlo en el header access-token y enviar los demas campos vacios'
+      tags:
+        - "Autenticacion"
+      parameters:
+        - in: header
+          name: access-token
+          description: 'Token de autenticacion'
+          required: false
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                correo_electronico:
+                  type: string
+                  example: 'example@mail.com'
+                  description: 'Correo electronico del usuario'
+                password:
+                  type: string
+                  example: 'P@55W0RD'
+                  description: 'Password del usuario'
+                google_id:
+                  type: string
+                  example: '243567890235467890678900998'
+                  description: 'Identificador de google del usuario'
+                facebook_id:
+                  type: string
+                  example: '324567890098796857432457689'
+                  description: 'Identificador de facebook del usuario'
+                apple_id:
+                  type: string
+                  example: '321456789009879685746356778'
+                  description: 'Identificador de apple del usuario'
+      responses:
+        '200':
+          description: 'Retorna la informacion del usuario logueado'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Sesion iniciada correctamente'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/informacionLogin'
+  /clientes/direcciones:
+    post:
+      description: 'Consulta las direcciones del cliente indicado'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'id del cliente'
+      responses:
+        '200':
+          description: 'Devuelve las direcciones del cliente. En el caso de Guatemala nivel_1 es el departamente y nivel_2 es el municipo, si nivel es igual a "" significa que no tiene el nivel'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/direccion_cliente'
+  /direcciones/{direccion_id}:
+    put:
+      description: 'Edita la direccion indicada. En el caso de Guatemala nivel_1 es el departamente y nivel_2 es el municipo, si nivel es igual a "" significa que no tiene el nivel'
+      tags:
+        - "Manejo de datos"
+      parameters:
+        - in: path
+          name: direccion_id
+          description: 'id de la direccion'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                direccion:
+                  type: string
+                  example: '3 calle 5-16'
+                  description: 'Nueva direccion'
+                nombre_nivel_1:
+                  type: string
+                  example: 'Guatemala'
+                  description: 'El nombre del nivel mas alto  de distribucion geografica'
+                nombre_nivel_2:
+                  type: string
+                  example: 'Villa Nueva'
+                  description: 'El nombre del segundo nivel de distribucion geografica'
+                nombre_nivel_3:
+                  type: string
+                  example: '""'
+                  description: 'El nombre del ultimo nivel de distribucion geografica'
+                zona:
+                  type: integer
+                  example: 5
+                  description: 'La nueva zona'
+                codigo_postal:
+                  type: integer
+                  example: 01001
+                  description: 'El nuevo codigo postal'
+      responses:
+        '200':
+          description: 'Devuelve la direccion modificada'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Actualizado exitosamente'
+                  records:
+                    $ref: '#/components/schemas/direccion'
+    delete:
+      description: 'Elimina la direccion indicada'
+      tags:
+        - "Manejo de datos"
+      parameters:
+        - in: path
+          name: direccion_id
+          description: 'id de la direccion'
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: 'Devuelve un mensaje de exito'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Eliminado exitosamente'
+  /cotizador:
+    post:
+      description: 'Cotiza un envio con la informacion proporcionada'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                valor:
+                  type: number
+                  example: 125.75
+                  description: 'Valor de la mercaderia en dolares'
+                peso:
+                  type: number
+                  example: 125.75
+                  description: 'Peso de la mercaderia en libras'
+                arancel_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del arancel seleccionado'
+                plan_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del plan seleccionado'
+                pais_id:
+                  type: integer
+                  example: 2
+                  description: 'Identificador del pais seleccionado'
+      responses:
+        '200':
+          description: 'Devuelve la cotizacion detallada en dolares y en la moneda local'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Cotizado con exito'
+                  records:
+                    type: object
+                    properties:
+                      valores_local:
+                        $ref: '#/components/schemas/valor'
+                      valores_dolares:
+                        $ref: '#/components/schemas/valor'
+  /planes:
+    post:
+      description: 'Consulta la informacion de los planes del pais seleccionado'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                pais_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del pais'
+      responses:
+        '200':
+          description: 'Devuelve un listado con los planes del pais'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/planes'
+  /informacion/contactenos:
+    post:
+      description: 'Consulta la informacion de contacto de la empresa'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                pais_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del pais'
+      responses:
+        '200':
+          description: 'Devuelve toda la informacion del contacto del pais seleccionado'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/contacto'
+  /reset/password:
+    post:
+      description: 'Envia el correo electronico para restablecer la password'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                correo_electronico:
+                  type: string
+                  example: 'test@email.com'
+                  description: 'Correo electronico para restablecer la password'
+      responses:
+        '200':
+          description: 'Envia un mensaje de exito si se restablecio correctamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Contraseña restablecida, revisa tu bandeja de entrada'
+  /update/password:
+    post:
+      description: 'Cambia la password del usuario seleccionado a la enviada'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del cliente'
+                password:
+                  type: string
+                  example: 'P@55W0RD'
+                  description: 'La password nueva'
+      responses:
+        '200':
+          description: 'Devuelve un mensaje de exito si se cambio la password'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Cambio de contraseña exitoso'
+  /adicionar/tarjeta:
+    post:
+      description: 'Agrega una tarjeta al cliente seleccionado'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del cliente'
+                numero:
+                  type: string
+                  example: '1234567890123456'
+                  description: 'Numero de la tarjeta'
+                mes:
+                  type: string
+                  example: '01'
+                  description: 'Mes de vencimiento de la tarjeta'
+                anho:
+                  type: string
+                  example: '2021'
+                  description: 'Año de vencimiento de la tarjeta'
+                cvv:
+                  type: string
+                  example: '000'
+                  description: 'Numero de la parte de atras de la tarjeta'
+                nombre_tarjeta:
+                  type: string
+                  example: 'Juan Perez'
+                  description: 'Nombre de la tarjeta'
+      responses:
+        '200':
+          description: 'Devuelve un mensaje de exito si se agrego la tarjeta'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'tarjeta creada correctamente'
+  /pago/detalle:
+    post:
+      description: 'Consulta un pago mostrando cada detalle que lo conforma'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                wr_id:
+                  type: string
+                  example: '4103000000'
+                  description: 'El Wr que se desea consultar'
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'El cliente que realizo el pago'
+                direccion_id:
+                  type: integer
+                  example: 0
+                  description: 'El id de la direccion'
+                pago_domicilio:
+                  type: boolean
+                  example: false
+                  description: 'Indica si se pago envio a domicilio'
+      responses:
+        '200':
+          description: 'Devuelve el pago con los detalles'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    $ref: '#/components/schemas/pago'
+  /lista/tarjetas:
+    post:
+      description: 'Muestra el listado de tarjetas de un usuario'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del cliente'
+      responses:
+        '200':
+          description: 'Devuelve el listado de tarjetas del usuario'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Tarjetas consultadas exitosamente'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/tarjeta'
+  /eliminar/tarjeta:
+    delete:
+      description: 'Elimina la tarjeta del perfil del usuario'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                id_tarjeta:
+                  type: integer
+                  example: 0
+                  description: 'Identificador de la tarjeta a eliminar'
+      responses:
+        '200':
+          description: 'Envia un mensaje de exito si se elimino la tarjeta'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Eliminada exitosamente'
+  /direcciones:
+    post:
+      description: 'Agrega una direccion para el cliente'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                direccion:
+                  type: string
+                  example: '3 calle 5-16'
+                  description: 'Nueva direccion'
+                nombre_nivel_1:
+                  type: string
+                  example: 'Guatemala'
+                  description: 'El nombre del nivel mas alto  de distribucion geografica, en caso de Guatemala el departamento'
+                nombre_nivel_2:
+                  type: string
+                  example: 'Villa Nueva'
+                  description: 'El nombre del segundo nivel de distribucion geografica, en caso de Guatemala el municipio'
+                nombre_nivel_3:
+                  type: string
+                  example: ''
+                  description: 'El nombre del tercer nivel de distribucion geografica, en caso de Guatemala el corregimiento'
+                zona:
+                  type: integer
+                  example: 5
+                  description: 'La nueva zona'
+                codigo_postal:
+                  type: integer
+                  example: 01001
+                  description: 'El nuevo codigo postal'
+                preferida:
+                  type: boolean
+                  example: true
+                  description: 'Si es la direccion preferida para enviar paquetes'
+                alias:
+                  type: string
+                  example: 'Casa'
+                  description: 'El alias de su direccion'
+                tipodireccion_id:
+                  type: integer
+                  example: 1
+                  description: 'El tipo de direccion es 1 para casa y 2 para trabajo'
+                pais_id:
+                  type: integer
+                  example: 1
+                  description: 'El identificador del pais'
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'El identificador del cliente'
+      responses:
+        '200':
+          description: 'Devuelve la direccion creada y un mensaje de exito'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Creacion exitosa'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/direccion'
+  /confirmar/wrs:
+    post:
+      description: 'Consulta la informacion de los Wrs enviados'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                wrs:
+                  type: string
+                  example: '444444,22222,3333'
+                  description: 'Los Wrs separados por comas'
+                cliente_id:
+                  type: integer
+                  example: 0
+                  description: 'El identificador del cliente'
+                direccion_id:
+                  type: integer
+                  example: 0
+                  description: 'Si marco previamente domicilio indicar a que direccion nuevamente'
+      responses:
+        '200':
+          description: 'Devuelve la informacion de los Wrs consultados y un mensaje de exito'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    $ref: '#/components/schemas/confirmacionWrs'
+  /paquetes:
+    post:
+      description: 'Consulta todos los paquetes del cliente'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'El identificador del cliente'
+      responses:
+        '200':
+          description: 'Devuelve los pedidos del cliente y un mensaje de confirmacion'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    $ref: '#/components/schemas/Wrs'
+  /precarga:
+    post:
+      description: 'Sube la informacion de la precarga del paquete En este endpoint es necesario que el orden de los parametros sea el siguiente Wrs, Descripcion, Valor declarado, Proveedor, Pais_id y Cliente_id'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                wrs:
+                  type: string
+                  example: '444444'
+                  description: 'Wrs al que se subira la precarga'
+                descripcion:
+                  type: string
+                  example: 'Electronicos'
+                  description: 'Descripcion de la mercaderia'
+                valor_declarado:
+                  type: number
+                  example: 25.50
+                  description: 'Valor de la mercaderia declarado en la factura'
+                proveedor:
+                  type: string
+                  example: 'Amazon'
+                  description: 'Proveedor del cliente'
+                pais_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del pais'
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del cliente'
+                file:
+                  type: string
+                  format: byte
+                  description: 'Factura de la mercaderia, se pueden subir todos los archivos necesarios'
+      responses:
+        '200':
+          description: 'Devuelve un mensaje de exito si se hizo la precarga correctamente'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Datos creados correctamente'
+  /lista/planes:
+     post:
+      description: 'Consulta la informacion de los planes del pais seleccionado'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                pais_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del pais'
+      responses:
+        '200':
+          description: 'Devuelve un listado con los planes del pais. Se actualizo para tener el plan exacto que se esta consultando'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/planesActualizado'
+  /suscripcion:
+    post:
+      description: 'Suscribe al cliente enviado al plan seleccionado'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                pais_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del pais'
+                plan_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del plan'
+                total:
+                  type: number
+                  example: 300
+                  description: 'Total a cancelar por el plan'
+                nombres:
+                  type: string
+                  example: 'Juan'
+                  description: 'Nombre del cliente'
+                apellidos:
+                  type: string
+                  example: 'Perez'
+                  description: 'Apellido del cliente'
+                direccion:
+                  type: string
+                  example: '11 calle 7-96'
+                  description: 'Direccion del cliente'
+                correo_electronico:
+                  type: string
+                  example: 'Example@mail.com'
+                  description: 'Email del cliente'
+                telefono:
+                  type: string
+                  example: '00000000'
+                  description: 'Numero de telefono del cliente'
+                numero_tarjeta:
+                  type: string
+                  example: '1234567890123456'
+                  description: 'Numero de la tarjeta'
+                mes_tarjeta:
+                  type: string
+                  example: '01'
+                  description: 'Mes de vencimiento de la tarjeta'
+                anho_tarjeta:
+                  type: string
+                  example: '2021'
+                  description: 'Año de vencimiento de la tarjeta'
+                cvv_tarjeta:
+                  type: string
+                  example: '000'
+                  description: 'Numero de la parte de atras de la tarjeta'
+                nombre_tarjeta:
+                  type: string
+                  example: 'Juan Perez'
+                  description: 'Nombre de la tarjeta'
+                fecha_nacimiento:
+                  type: string
+                  format: date
+                  example: '2020-01-01'
+                  description: 'Fecha de nacimiento del cliente'
+                nombre_facturacion:
+                  type: string
+                  example: 'Juan Perez'
+                  description: 'Nombre para la facturacion del cliente si no desea usar el mismo de la tarjeta'
+                nit:
+                  type: string
+                  example: '123456789'
+                  description: 'Nit del cliente'
+                password:
+                  type: string
+                  example: 'P@55W0RD'
+                  description: 'Contraseña del cliente'
+                fuente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del lugar donde el cliente se esta registrando, si es desde la app es 1 y si es desde la pagina web es 2'
+      responses:
+        '200':
+          description: 'Devuelve la informacion de la cuentea del usuario, un mensaje de confirmacion y envia un correo al email del usuario para activar su cuenta'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Creado correctamente'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/usuarioRegistrado'
+  /rastreo:
+    post:
+      description: 'Consulta en donde se encuentran los paquetes de un cliente segun las fechas ingresadas'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del cliente'
+                fecha_inicio:
+                  type: string
+                  format: date
+                  example: '2021-01-01'
+                  description: 'Primera fecha del rango de busqueda'
+                fecha_fin:
+                  type: string
+                  format: date
+                  example: '2021-01-31'
+                  description: 'Segunda fecha del rango de busqueda'
+      responses:
+        '200':
+          description: 'Devuelve las ubicaciones de los paquetes entre los rangos de fechas y un mensaje de exito. Si el codigo de estado_id es 6 significa que se envio por Guatex y se enviara el numero de tracking'
+          content:
+           application/json:
+             schema:
+               type: object
+               properties:
+                 result:
+                   type: boolean
+                   example: true
+                 message:
+                   type: string
+                   example: 'Consulta exitosa'
+                 records:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ubicaciones'
+  /detalle/paquete:
+    post:
+      description: 'Muestra la informacion del paquete eviado'
+      tags:
+        - "Consulta de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded: 
+            schema:
+              type: object
+              properties:
+                wr_id:
+                  type: string
+                  example: '444444'
+                  description: 'Identificador del Wrs'
+      responses:
+        '200':
+          description: 'Devuelve los pedidos del cliente y un mensaje de confirmacion'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    $ref: '#/components/schemas/detalleWrs'
+  /confirmar/domicilio:
+    post:
+      description: 'Consulta si el cliente desea servicio a domicilio'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del cliente'
+                wrs_id:
+                  type: integer
+                  example: 444444
+                  description: 'Identificador del Wrs'
+                direccion_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador de la direccion del cliente'
+                pago_domicilio:
+                  type: boolean
+                  example: true
+                  description: 'Indica si desea el servicio a domicilio'
+      responses:
+        '200':
+          description: 'Devuelve un mensaje de confirmacion'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Confirmado exitosamente'
+  /pago/factura:
+    post:
+      description: 'Realiza el pago de un Wrs usando la tarjeta seleccionada por el usuario'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador del cliente'
+                wrs:
+                  type: string
+                  example: '444444'
+                  description: 'Wrs a pagar'
+                direccion_id:
+                  type: integer
+                  example: 1
+                  description: 'Identificador de la direccion del cliente'
+                id_tarjeta:
+                  type: integer
+                  example: 1
+                  description: 'Identificador de la tarjeta del cliente'
+                total:
+                  type: number
+                  example: 200
+                  description: 'El total a cancelar'
+      responses:
+        '200':
+          description: 'Devuelve la informacion detallada del pago y un mensaje de confirmacion'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'El pago ha sido exitoso, coordinaremos la entrega de inmediato'
+                  records:
+                    $ref: '#/components/schemas/pagoFactura'
+  /actualizar/plan:
+    post:
+      description: 'Cambia el plan del cliente'
+      tags:
+        - "Manejo de datos"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                cliente_id:
+                  type: integer
+                  example: 1
+                  description: 'El identificador del cliente'
+                plan_id:
+                  type: integer
+                  example: 1
+                  description: 'El identificador del plan a cambiar'
+                tarjeta_id:
+                  type: integer
+                  example: 1
+                  description: 'El identificador de la tarjeta'
+      responses:
+        '200':
+          description: 'Devuelve los pedidos del cliente y un mensaje de confirmacion'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Cambio de plan exitosa'
+                  records:
+                    $ref: '#/components/schemas/planCliente'
+  /autenticar:
+    post:
+      description: 'Autentica el usuario y contraseña'
+      tags:
+        - "Autenticacion"
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                usuario:
+                  type: string
+                  example: 'example'
+                  description: 'El usuario del cliente'
+                password:
+                  type: string
+                  example: 'P@55W0RD'
+                  description: 'La contraseña del cliente'
+      responses:
+        '200':
+          description: 'Devuelve los pedidos del cliente y un mensaje de confirmacion'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Autenticacion correcta'
+                  token:
+                    type: string
+                    example: 'awserdtfyghjrkod.aeliykUGSDchvb.drfghkjlihkugjyfhtdgyu'
+  /fuentes:
+    get:
+      description: 'Consulta todas las fuentes por las que se pueden usar las apis'
+      tags:
+        - "Consulta de datos"
+      parameters:
+        - in: header
+          name: access-token
+          description: 'Token de autenticacion'
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 'Devuelve el listado de fuentes'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: 'Consulta exitosa'
+                  records:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/fuentes'
