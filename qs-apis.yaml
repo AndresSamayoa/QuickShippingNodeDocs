@@ -618,6 +618,7 @@ paths:
                   description: 'Correo electronico del usuario'
                 password:
                   type: string
+                  format: password
                   example: 'P@55W0RD'
                   description: 'Password del usuario'
                 google_id:
@@ -990,6 +991,7 @@ paths:
                   description: 'Identificador del cliente'
                 password:
                   type: string
+                  format: password
                   example: 'P@55W0RD'
                   description: 'La password nueva'
       responses:
@@ -1829,6 +1831,7 @@ paths:
                   description: 'El usuario del cliente'
                 password:
                   type: string
+                  format: password
                   example: 'P@55W0RD'
                   description: 'La contraseña del cliente'
       responses:
